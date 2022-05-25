@@ -64,7 +64,7 @@ Please make sure you have an organization ID and API Key for your application. T
 1. Clone the repo
 
 ```sh
-git clone ---
+git clone https://github.com/dyte-in/react-ui-kit-sample-app.git
 ```
 
 2. Install NPM packages
