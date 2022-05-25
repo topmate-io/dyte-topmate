@@ -51,8 +51,6 @@ React App structure:
 
 ```
 ├── src
-│   ├── 
-│   ├── config.ts // UI config object for dyte meeting
 │   ├── App.tsx // Dyte Meeting Component
 │   ├── index.tsx // application js entry point
 ```
