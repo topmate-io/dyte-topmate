@@ -5,6 +5,7 @@
   "dependencies": {
     "@dytesdk/react-ui-kit": "^1.5.0-2",
     "@dytesdk/web-core": "^0.21.3",
+    "axios": "^0.27.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1"

@@ -71,7 +71,12 @@ git clone https://github.com/dyte-in/react-ui-kit-sample-app.git
 npm install
 ```
 
-3. Run the application
+3. Create an `.env` file with your credentials. Use `.env.example` as a template.
+```
+cp .env.example .env
+```
+
+4. Run the application
 
 ```sh
 npm start
