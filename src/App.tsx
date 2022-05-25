@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import DyteClient from '@dytesdk/web-core';
 import { DyteMeeting } from '@dytesdk/react-ui-kit';
-import { config } from './config';
+// import { config } from './config';
 
 
 function App() {
@@ -34,7 +34,7 @@ function App() {
   return (
     <DyteMeeting
       meeting={meeting}
-      config={config}
+      // config={config}
       style={{ width: '100%', height: '100vh' }}
       showSetupScreen={true}
     />
