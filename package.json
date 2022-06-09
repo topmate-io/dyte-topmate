@@ -1,18 +1,28 @@
 {
-  "name": "react-uikit-sample",
+  "name": "react-uikit-sample-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@dytesdk/react-ui-kit": "^1.5.0-2",
-    "@dytesdk/web-core": "^0.21.3",
+    "@dytesdk/react-ui-kit": "^1.8.3",
+    "@dytesdk/react-web-core": "^1.1.1",
+    "@types/jest": "^27.5.1",
+    "@types/node": "^16.11.36",
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.5",
     "axios": "^0.27.2",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "react-scripts": "5.0.1"
+    "crypto-browserify": "^3.12.0",
+    "process": "^0.11.10",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "5.0.1",
+    "stream-browserify": "^3.0.0",
+    "typescript": "^4.7.2",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "cra-webpack-rewired start",
+    "build": "cra-webpack-rewired build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -35,9 +45,8 @@
     ]
   },
   "devDependencies": {
-    "@types/node": "^17.0.35",
-    "@types/react": "^18.0.9",
-    "@types/react-dom": "^18.0.5",
-    "typescript": "^4.7.2"
+    "buffer": "^6.0.3",
+    "cra-webpack-rewired": "^1.0.1",
+    "os-browserify": "^0.3.0"
   }
 }
