@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDyteClient, DyteProvider } from "@dytesdk/react-web-core";
-import { DyteMeeting } from "@dytesdk/react-ui-kit";
+import { useDyteClient } from "@dytesdk/react-web-core";
+import { DyteControlbar, DyteControlbarButton, DyteMeeting, extendConfig } from "@dytesdk/react-ui-kit";
 import { joinExistingRoom } from "../utils";
 
 export const SimpleDyteClient: React.FC<{}> = () => {
@@ -17,6 +17,10 @@ export const SimpleDyteClient: React.FC<{}> = () => {
       initMeeting({
         authToken: auth,
         roomName,
+        defaults: {
+          video: false,
+          audio: false,
+        }
       });
     }
 
@@ -35,11 +39,28 @@ export const SimpleDyteClient: React.FC<{}> = () => {
     }
   }, [meeting, navigate]);
 
+  const config = extendConfig({
+    root: {
+      'dyte-mixed-grid': {
+        states: ['activeSpotlight'],
+        children: [['dyte-simple-grid', { style: { flexGrow: '6' } }]],
+      },
+    },
+  });
+
+
+  if (!meeting) {
+    return null;
+  }
+  
   return (
-    <DyteProvider value={meeting}>
-      <div style={{height:'100vh', width: '100vw'}}>
-        <DyteMeeting mode="fill" showSetupScreen={false} meeting={meeting} />      
+    <div style={{display: "flex", flexDirection: "row"}}>
+      <div style={{height:'100vh', width: '20vw', paddingTop: '15px'}}>
+
       </div>
-    </DyteProvider>
+      <div style={{height:'100vh', width: '80vw'}}>
+        <DyteMeeting mode="fill" meeting={meeting} config={config} />
+      </div>
+    </div>
   );
 };

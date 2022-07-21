@@ -15,7 +15,7 @@ export const CustomLayout: React.FC<{}> = () => {
     if (auth && roomName && params.id) {
       initMeeting({
         authToken: auth,
-        roomName,
+        roomName
       });
     }
     if (!auth && !roomName && params.id && params.room) {
