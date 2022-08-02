@@ -17,7 +17,7 @@
     "jsx": "react-jsx",
     "baseUrl": "./",
     "paths": {
-      "crypto": ["node_modules/crypto-js"]
+      "crypto": ["node_modules/crypto-browserify"]
     }
   },
   "include": ["src"]
