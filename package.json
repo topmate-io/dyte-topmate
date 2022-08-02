@@ -51,5 +51,8 @@
     "buffer": "^6.0.3",
     "cra-webpack-rewired": "^1.0.1",
     "os-browserify": "^0.3.0"
+  },
+  "browser": {
+    "crypto": false
   }
 }
