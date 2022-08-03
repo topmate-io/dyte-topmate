@@ -1,23 +1,33 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { DyteMeeting, extendConfig } from "@dytesdk/react-ui-kit";
 import { useDyteClient } from "@dytesdk/react-web-core";
-import {
-  DyteControlbar,
-  DyteControlbarButton,
-  DyteMeeting,
-  extendConfig,
-} from "@dytesdk/react-ui-kit";
-import { joinExistingRoom } from "../utils";
+import React, { useEffect } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-export const SimpleDyteClient: React.FC<{}> = () => {
+function useQuery() {
+  const { search } = useLocation();
+  return React.useMemo(() => new URLSearchParams(search), [search]);
+}
+
+export const TopmateClient: React.FC<{}> = () => {
   const navigate = useNavigate();
-  const params = useParams<{ id: string; room: string }>();
-  const auth = sessionStorage.getItem("auth");
-  const roomName = sessionStorage.getItem("roomName");
+  const params: any = useParams<{
+    id: string;
+    room: string;
+    authToken: string;
+  }>();
+  let query: any = useQuery();
   const [meeting, initMeeting] = useDyteClient();
 
   useEffect(() => {
-    if (auth && roomName && params.id) {
+    const authToken = query.get("authToken");
+    const { id, room } = params;
+    const auth = sessionStorage.getItem("auth");
+    const roomName = sessionStorage.getItem("roomName");
+    console.log("Params: ", id, room, authToken);
+    sessionStorage.setItem("auth", authToken);
+    sessionStorage.setItem("meetingID", id);
+    sessionStorage.setItem("roomName", room);
+    if (auth && roomName && params?.id) {
       initMeeting({
         authToken: auth,
         roomName,
@@ -26,11 +36,6 @@ export const SimpleDyteClient: React.FC<{}> = () => {
           audio: false,
         },
       });
-    }
-
-    if (!auth && !roomName && params.id && params.room) {
-      //creating a new participant
-      joinExistingRoom(params.id, params.room);
     }
   }, []);
 
@@ -58,7 +63,6 @@ export const SimpleDyteClient: React.FC<{}> = () => {
 
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
-      {/* <div style={{ height: "100vh", width: "20vw", paddingTop: "15px" }}></div> */}
       <div style={{ height: "100vh", width: "100vw" }}>
         <DyteMeeting
           mode="fill"

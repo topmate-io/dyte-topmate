@@ -53,9 +53,9 @@ export const MainScreenComponent = () => {
         Accept: "application/json",
       },
       data: {
-        roleName: isHost ? 'host' : 'participant',
+        roleName: isHost ? "host" : "participant",
         meetingId: meetingId,
-        clientSpecificId: Math.random().toString(36).substring(7)
+        clientSpecificId: Math.random().toString(36).substring(7),
       },
     });
 
@@ -86,7 +86,7 @@ export const MainScreenComponent = () => {
 
   return (
     <div className="main-screen-wrapper">
-      <img src="/logo.svg" alt="dyte-logo" />
+      <img src="/topmate-logo.svg" alt="dyte-logo" />
       <h1>Welcome to the example app.</h1>
       <div className="flex row">
         <input
@@ -124,9 +124,7 @@ export const MainScreenComponent = () => {
                 <div key={el.id} className="flex column meeting-list-wrapper">
                   <li key={k}>{el.title}</li>
                   <div className="flex row">
-                    <button
-                      onClick={() => joinRoom(el.id, el.roomName, true)}
-                    >
+                    <button onClick={() => joinRoom(el.id, el.roomName, true)}>
                       Join as Host{" "}
                     </button>
                     <button
