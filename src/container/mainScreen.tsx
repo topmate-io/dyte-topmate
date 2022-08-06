@@ -87,8 +87,8 @@ export const MainScreenComponent = () => {
   return (
     <div className="main-screen-wrapper">
       <img src="/topmate-logo.svg" alt="dyte-logo" />
-      <h1>Welcome to the example app.</h1>
-      <div className="flex row">
+      <h1>Welcome to the Topmate App.</h1>
+      {/* <div className="flex row">
         <input
           type="text"
           value={newMeetingTitle}
@@ -145,7 +145,7 @@ export const MainScreenComponent = () => {
           </div>
         )}
         {loading && "Loading..."}
-      </div>
+      </div> */}
     </div>
   );
 };

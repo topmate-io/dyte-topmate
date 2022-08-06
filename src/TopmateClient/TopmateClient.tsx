@@ -10,27 +10,27 @@ function useQuery() {
 
 export const TopmateClient: React.FC<{}> = () => {
   const navigate = useNavigate();
+  console.log("Navigate: ", navigate);
   const params: any = useParams<{
     id: string;
     room: string;
-    authToken: string;
+    token: string;
   }>();
   let query: any = useQuery();
   const [meeting, initMeeting] = useDyteClient();
 
   useEffect(() => {
-    const authToken = query.get("authToken");
+    const token = query.get("authToken");
     const { id, room } = params;
-    const auth = sessionStorage.getItem("auth");
-    const roomName = sessionStorage.getItem("roomName");
-    console.log("Params: ", id, room, authToken);
-    sessionStorage.setItem("auth", authToken);
+    const auth: string = sessionStorage.getItem("auth") || token;
+    console.log("Params: ", id, room, token);
+    sessionStorage.setItem("auth", token);
     sessionStorage.setItem("meetingID", id);
     sessionStorage.setItem("roomName", room);
-    if (auth && roomName && params?.id) {
+    if (token && room && id) {
       initMeeting({
         authToken: auth,
-        roomName,
+        roomName: room,
         defaults: {
           video: false,
           audio: false,
@@ -41,9 +41,11 @@ export const TopmateClient: React.FC<{}> = () => {
 
   useEffect(() => {
     if (meeting) {
+      const { id } = params;
       meeting.meta.on("disconnected", () => {
         sessionStorage.clear();
-        navigate("/");
+        const meetingEndedRL = `/meeting/${id}/ended`;
+        navigate(meetingEndedRL);
       });
     }
   }, [meeting, navigate]);

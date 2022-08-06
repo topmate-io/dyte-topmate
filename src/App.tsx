@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { SimpleDyteClient } from "./exampleComponent/simpleDyteClient";
 import { CustomLayout } from "./exampleComponent/customLayout";
 import { TopmateClient } from "src/TopmateClient/TopmateClient";
+import MeetingEnded from "src/TopmateClient/MeetingEnded";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             element={<CustomLayout />}
           />
           <Route path="/meeting/:room/:id" element={<TopmateClient />} />
+          <Route path="/meeting/:id/ended" element={<MeetingEnded />} />
         </Routes>
       </Router>
     </React.Fragment>
