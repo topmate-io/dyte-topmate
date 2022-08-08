@@ -51,11 +51,8 @@ export const TopmateClient: React.FC<{}> = () => {
   }, [meeting, navigate]);
 
   const config = extendConfig({
-    root: {
-      "dyte-mixed-grid": {
-        states: ["activeSpotlight"],
-        children: [["dyte-simple-grid", { style: { flexGrow: "6" } }]],
-      },
+    designTokens: {
+      logo: "https://topmate.io/topmatelogo.svg",
     },
   });
 

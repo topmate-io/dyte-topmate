@@ -87,7 +87,11 @@ const Meeting = () => {
         }}
       >
         <div style={{ height: "50px", maxWidth: "50px" }}>
-          <DyteLogo config={{ designTokens: { logo: LOGO } }} />
+          <DyteLogo
+            config={{
+              designTokens: { logo: "https://topmate.io/topmatelogo.svg" },
+            }}
+          />
         </div>
         Your App
       </div>
