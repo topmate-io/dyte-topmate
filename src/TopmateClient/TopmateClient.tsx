@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { DyteMeeting } from "@dytesdk/react-ui-kit";
 import { useDyteClient } from "@dytesdk/react-web-core";
+import DyteVideoBackgroundTransformer from "@dytesdk/video-background-transformer";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
@@ -18,6 +20,18 @@ export const TopmateClient: React.FC<{}> = () => {
   }>();
   let query: any = useQuery();
   const [meeting, initMeeting] = useDyteClient();
+
+  // Retro Theme Plugin
+  const RetroTheme = (): any => {
+    return (canvas: any, ctx: any) => {
+      ctx.filter = "grayscale(1)";
+      ctx.shadowColor = "#000";
+      ctx.shadowBlur = 20;
+      ctx.lineWidth = 50;
+      ctx.strokeStyle = "#000";
+      ctx.strokeRect(0, 0, canvas.width, canvas.height);
+    };
+  };
 
   useEffect(() => {
     const token = query.get("authToken");
@@ -38,14 +52,24 @@ export const TopmateClient: React.FC<{}> = () => {
     }
   }, []);
 
+  const updateMeetingEvents = async () => {
+    const { id } = params;
+    // const videoBackgroundTransformer =
+    //   await DyteVideoBackgroundTransformer.init();
+    // meeting.self.addVideoMiddleware(RetroTheme);
+    // meeting?.self?.addVideoMiddleware(
+    //   await videoBackgroundTransformer.createBackgroundBlurVideoMiddleware()
+    // );
+    meeting?.meta.on("disconnected", () => {
+      sessionStorage.clear();
+      const meetingEndedRL = `/meeting/${id}/ended`;
+      navigate(meetingEndedRL);
+    });
+  };
+
   useEffect(() => {
     if (meeting) {
-      const { id } = params;
-      meeting.meta.on("disconnected", () => {
-        sessionStorage.clear();
-        const meetingEndedRL = `/meeting/${id}/ended`;
-        navigate(meetingEndedRL);
-      });
+      updateMeetingEvents();
     }
   }, [meeting, navigate]);
 

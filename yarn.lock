@@ -1214,6 +1214,13 @@
     lodash.merge "^4.6.2"
     loglevel "^1.8.0"
 
+"@dytesdk/video-background-transformer@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@dytesdk/video-background-transformer/-/video-background-transformer-1.1.0.tgz#a4564cfe2e7b3aa4a154b6083a66d3a68c7a9438"
+  integrity sha512-uaw0zmagr/8mdAlpY4P5MOkANbEOAlGIfrWuGbTHR9WbOyetyCyJHQMm7XWbJqTTpPxSElG9eSz1HMXHYA7UtQ==
+  dependencies:
+    "@mediapipe/selfie_segmentation" "^0.1.1632777926"
+
 "@dytesdk/web-core@>=0.36.2", "@dytesdk/web-core@^0.36.2":
   version "0.36.2"
   resolved "https://registry.yarnpkg.com/@dytesdk/web-core/-/web-core-0.36.2.tgz#a22042d1bed05b99654f73d362bc6a40b837d86f"
@@ -1565,6 +1572,11 @@
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
+
+"@mediapipe/selfie_segmentation@^0.1.1632777926":
+  version "0.1.1632777926"
+  resolved "https://registry.yarnpkg.com/@mediapipe/selfie_segmentation/-/selfie_segmentation-0.1.1632777926.tgz#67d37a53b0de89efc4a0e3b63332a4da3a6ad9c8"
+  integrity sha512-OSGhYaZsdOXKyY0JCueOflq3ICLNMrBekI2V8vShum8wuoH3xjfEM6NnIujwJ5SlTdZEXi7Up2koOILDgQbWyg==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
