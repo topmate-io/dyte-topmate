@@ -1,4 +1,4 @@
-import { DyteMeeting, extendConfig } from "@dytesdk/react-ui-kit";
+import { DyteMeeting } from "@dytesdk/react-ui-kit";
 import { useDyteClient } from "@dytesdk/react-web-core";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -23,7 +23,6 @@ export const TopmateClient: React.FC<{}> = () => {
     const token = query.get("authToken");
     const { id, room } = params;
     const auth: string = sessionStorage.getItem("auth") || token;
-    console.log("Params: ", id, room, token);
     sessionStorage.setItem("auth", token);
     sessionStorage.setItem("meetingID", id);
     sessionStorage.setItem("roomName", room);
@@ -50,11 +49,15 @@ export const TopmateClient: React.FC<{}> = () => {
     }
   }, [meeting, navigate]);
 
-  const config = extendConfig({
-    designTokens: {
-      logo: "https://topmate.io/topmatelogo.svg",
-    },
-  });
+  useEffect(() => {
+    sessionStorage.clear();
+  }, []);
+
+  // const config = extendConfig({
+  //   designTokens: {
+  //     logo: "https://topmate.io/topmatelogo.svg",
+  //   },
+  // });
 
   if (!meeting) {
     return null;
@@ -66,7 +69,7 @@ export const TopmateClient: React.FC<{}> = () => {
         <DyteMeeting
           mode="fill"
           meeting={meeting}
-          config={config}
+          // config={config}
           showSetupScreen
         />
       </div>
