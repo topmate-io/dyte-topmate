@@ -6,7 +6,7 @@ import DyteCustomMeeting from "./DyteCustomMeeting";
 
 export const CustomLayout: React.FC<{}> = () => {
   let navigate = useNavigate();
-  let params = useParams<{ id :  string; room : string}>();
+  let params = useParams<{ id: string; room: string }>();
   let auth = sessionStorage.getItem("auth");
   let roomName = sessionStorage.getItem("roomName");
   const [meeting, initMeeting] = useDyteClient();
@@ -15,18 +15,18 @@ export const CustomLayout: React.FC<{}> = () => {
     if (auth && roomName && params.id) {
       initMeeting({
         authToken: auth,
-        roomName
+        roomName,
       });
     }
     if (!auth && !roomName && params.id && params.room) {
       //creating a new participant
-      joinExistingRoom(params.id, params.room)
+      joinExistingRoom(params.id, params.room);
     }
   }, []);
 
   useEffect(() => {
     if (meeting) {
-      meeting.meta.on('disconnected', () => {
+      meeting.meta.on("disconnected", () => {
         sessionStorage.clear();
         navigate("/");
       });
@@ -34,8 +34,8 @@ export const CustomLayout: React.FC<{}> = () => {
   }, [meeting, navigate]);
 
   return (
-    <DyteProvider value={meeting}>
-      <div style={{height:'100vh', width: '100vw'}}>
+    <DyteProvider value={meeting} fallback={<>Topmate</>}>
+      <div style={{ height: "100vh", width: "100vw" }}>
         <DyteCustomMeeting />
       </div>
     </DyteProvider>
