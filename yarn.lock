@@ -1190,6 +1190,27 @@
   resolved "https://registry.yarnpkg.com/@csstools/selector-specificity/-/selector-specificity-2.2.0.tgz#2cbcf822bf3764c9658c4d2e568bd0c0cb748016"
   integrity sha512-+OJ9konv95ClSTOJCmMZqpd5+YGsB2S+x6w3E1oaM8UuR5j8nTNHYSz8c9BEPGDOCMQYIEEGlVPj/VY64iTbGw==
 
+"@dyteinternals/awaitqueue@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@dyteinternals/awaitqueue/-/awaitqueue-3.0.1.tgz#edc6db94339cbb93de6c06045dec73ef952f5b51"
+  integrity sha512-KooI+0lfAu13gUMuVtYlW//ti6MEvhqU8PP3jCXFqU2FSETOKHdtpBfHmBCE/Ass6+EStsDiVKLyh5XHNh+hsg==
+  dependencies:
+    debug "^4.3.4"
+
+"@dyteinternals/mediasoup-client@3.6.83":
+  version "3.6.83"
+  resolved "https://registry.yarnpkg.com/@dyteinternals/mediasoup-client/-/mediasoup-client-3.6.83.tgz#0c99430dbe1dc1fb0b99847cb4dc7bf25c0ec86c"
+  integrity sha512-4+RTLdGfqZr8m3RAhsknwAvqsTpjtb7M8ryEs/D7mqfuEZeAZOa1GOrCqicqPitGNMpSZcXToetrRBKnmADfQg==
+  dependencies:
+    "@dyteinternals/awaitqueue" "^3.0.1"
+    "@types/debug" "^4.1.7"
+    bowser "^2.11.0"
+    debug "^4.3.4"
+    events "^3.3.0"
+    h264-profile-level-id "^1.0.1"
+    queue-microtask "^1.2.3"
+    sdp-transform "^2.14.1"
+
 "@dyteinternals/utils@1.8.1":
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/@dyteinternals/utils/-/utils-1.8.1.tgz#98ae75bd5292f6af4059f7180a94b1eca95575ab"
@@ -1205,12 +1226,12 @@
   dependencies:
     "@dytesdk/ui-kit" "1.47.0"
 
-"@dytesdk/react-web-core@^1.26.1":
-  version "1.26.1"
-  resolved "https://registry.yarnpkg.com/@dytesdk/react-web-core/-/react-web-core-1.26.1.tgz#15ccc708f2ad3a98c2d49be59f4f19409466a8a9"
-  integrity sha512-Vixvnn5AC5VEreUe2qx0IHMf8YSx6pw1g4BZ+ouoLulVpiyl13wYQ+QsQjhDYlLAWJ+hROusbRbG/jAw8Z8V2Q==
+"@dytesdk/react-web-core@^1.29.4":
+  version "1.29.4"
+  resolved "https://registry.yarnpkg.com/@dytesdk/react-web-core/-/react-web-core-1.29.4.tgz#87f70e12ff98da20c0c25624055baec8eb91dd87"
+  integrity sha512-TRcGoE28Cgh15mhHXSZR+3IVo8uWCF8b6QcVvkk4pzp/xzLUokjJadF2SjXBuMEZEM+XP7wopHSNntAavWDBCg==
   dependencies:
-    "@dytesdk/web-core" ">=1.10.1"
+    "@dytesdk/web-core" "^1.12.4"
 
 "@dytesdk/ui-kit@1.47.0":
   version "1.47.0"
@@ -1230,18 +1251,19 @@
   dependencies:
     "@mediapipe/selfie_segmentation" "0.1.1671057942"
 
-"@dytesdk/web-core@1.10.1", "@dytesdk/web-core@>=1.10.1":
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/@dytesdk/web-core/-/web-core-1.10.1.tgz#b9cf69efbdf5d384368355bc88711a201ff0fd04"
-  integrity sha512-9b2vNxtzCReNLl2lnlqyWi4gSXW6CINj4ZAn4ApA7Y8Q5gwyPQSpXk+LJlBtX3AU9L0PCDb9VEOBwBUuwVc3hw==
+"@dytesdk/web-core@1.12.4", "@dytesdk/web-core@^1.12.4":
+  version "1.12.4"
+  resolved "https://registry.yarnpkg.com/@dytesdk/web-core/-/web-core-1.12.4.tgz#c8d17460cb381145faa8dab0ba24c8487d6b4036"
+  integrity sha512-jomoWHfybVUL0VNNxn4iUvMYvuig1EmdL6m4XH9met0BZ9lZh4rHvGrKlADGwjlulwO6SXIVlz9G4nPJe2j5rg==
   dependencies:
+    "@dyteinternals/mediasoup-client" "3.6.83"
     "@dyteinternals/utils" "1.8.1"
     "@opentelemetry/api" "^1.4.1"
     "@opentelemetry/context-zone-peer-dep" "^1.10.0"
     "@opentelemetry/exporter-trace-otlp-http" "^0.36.0"
     "@opentelemetry/resources" "^1.10.0"
-    "@opentelemetry/sdk-trace-base" "^1.10.0"
-    "@opentelemetry/sdk-trace-web" "^1.10.0"
+    "@opentelemetry/sdk-trace-base" "1.10.0"
+    "@opentelemetry/sdk-trace-web" "1.10.0"
     "@opentelemetry/semantic-conventions" "^1.10.0"
     "@protobuf-ts/runtime" "^2.7.0"
     awaitqueue "^3.0.1"
@@ -1660,6 +1682,13 @@
   resolved "https://registry.yarnpkg.com/@opentelemetry/context-zone-peer-dep/-/context-zone-peer-dep-1.11.0.tgz#3b8cd0917cc1fe32ae9e7ce68c4ec159c94c75e6"
   integrity sha512-YVIKpcKrXduyES7OgoymybyVBTecZGLOhWju99x2lXpioreLGRqmLikC/1PuY9mwqDzNTJKcj5dYohM4lm/iUA==
 
+"@opentelemetry/core@1.10.0":
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@opentelemetry/core/-/core-1.10.0.tgz#12626d19287030a16ec1101f8efcacb5198a89bb"
+  integrity sha512-H5/mfU3TsEBe/cnnLu3VCkzjqyRARmhxQGsT64KwafxjzkDh+c2Bk4n140Cg/xhgrjK2sFsxbJj6d0xZlVo/OQ==
+  dependencies:
+    "@opentelemetry/semantic-conventions" "1.10.0"
+
 "@opentelemetry/core@1.10.1":
   version "1.10.1"
   resolved "https://registry.yarnpkg.com/@opentelemetry/core/-/core-1.10.1.tgz#057a621db13589bad5618b786bb4f0a643bd4323"
@@ -1702,6 +1731,14 @@
     "@opentelemetry/sdk-metrics" "1.10.1"
     "@opentelemetry/sdk-trace-base" "1.10.1"
 
+"@opentelemetry/resources@1.10.0":
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@opentelemetry/resources/-/resources-1.10.0.tgz#79e8388899a79e13a830b3bd776cc8489a107b9b"
+  integrity sha512-bh4auHOdS0/cwSgviCPbkItLwLZRWCZKp/ns2soVwlWQMJH36FIHbcYJf7G9+Rthlc6u163VhUefho+eDrPVeA==
+  dependencies:
+    "@opentelemetry/core" "1.10.0"
+    "@opentelemetry/semantic-conventions" "1.10.0"
+
 "@opentelemetry/resources@1.10.1":
   version "1.10.1"
   resolved "https://registry.yarnpkg.com/@opentelemetry/resources/-/resources-1.10.1.tgz#a2537ea241e09a63d5d1afd566f89e2ef5889370"
@@ -1710,7 +1747,7 @@
     "@opentelemetry/core" "1.10.1"
     "@opentelemetry/semantic-conventions" "1.10.1"
 
-"@opentelemetry/resources@1.11.0", "@opentelemetry/resources@^1.10.0":
+"@opentelemetry/resources@^1.10.0":
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/@opentelemetry/resources/-/resources-1.11.0.tgz#68e3ca399e63246a6b87bc495f819c5bd9f2c112"
   integrity sha512-y0z2YJTqk0ag+hGT4EXbxH/qPhDe8PfwltYb4tXIEsozgEFfut/bqW7H7pDvylmCjBRMG4NjtLp57V1Ev++brA==
@@ -1727,6 +1764,15 @@
     "@opentelemetry/resources" "1.10.1"
     lodash.merge "4.6.2"
 
+"@opentelemetry/sdk-trace-base@1.10.0":
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@opentelemetry/sdk-trace-base/-/sdk-trace-base-1.10.0.tgz#abbffa0ae39234f4c441357edc3f4da45dc73ef5"
+  integrity sha512-X4rRShtVQ893LCU4GNKS1TKFua9nSjVmo0VJvigfSFSOmyyOLfiyTWmVL9MKV7Ws0HqLOIWJixJY0x28fw3Tzg==
+  dependencies:
+    "@opentelemetry/core" "1.10.0"
+    "@opentelemetry/resources" "1.10.0"
+    "@opentelemetry/semantic-conventions" "1.10.0"
+
 "@opentelemetry/sdk-trace-base@1.10.1":
   version "1.10.1"
   resolved "https://registry.yarnpkg.com/@opentelemetry/sdk-trace-base/-/sdk-trace-base-1.10.1.tgz#fce06a810f9052d3c1b935d134979f4254bc8ae2"
@@ -1736,23 +1782,19 @@
     "@opentelemetry/resources" "1.10.1"
     "@opentelemetry/semantic-conventions" "1.10.1"
 
-"@opentelemetry/sdk-trace-base@1.11.0", "@opentelemetry/sdk-trace-base@^1.10.0":
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/@opentelemetry/sdk-trace-base/-/sdk-trace-base-1.11.0.tgz#a962dbe74ae28442501ce804d4a270892e70d862"
-  integrity sha512-DV8e5/Qo42V8FMBlQ0Y0Liv6Hl/Pp5bAZ73s7r1euX8w4bpRes1B7ACiA4yujADbWMJxBgSo4fGbi4yjmTMG2A==
+"@opentelemetry/sdk-trace-web@1.10.0":
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@opentelemetry/sdk-trace-web/-/sdk-trace-web-1.10.0.tgz#05c82c0854a5d7f377cf1a2afd37855fca96eed1"
+  integrity sha512-IAvZAyRCqZ2JFMHk1dpz0M7cJhg93/CoGNcEW56+tFN2EUftpXdlHb+SOrAk3i2nHgP2v6lQv/3s097llWDgZg==
   dependencies:
-    "@opentelemetry/core" "1.11.0"
-    "@opentelemetry/resources" "1.11.0"
-    "@opentelemetry/semantic-conventions" "1.11.0"
+    "@opentelemetry/core" "1.10.0"
+    "@opentelemetry/sdk-trace-base" "1.10.0"
+    "@opentelemetry/semantic-conventions" "1.10.0"
 
-"@opentelemetry/sdk-trace-web@^1.10.0":
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/@opentelemetry/sdk-trace-web/-/sdk-trace-web-1.11.0.tgz#1d45b2ce8374c26f3086eb224f80090560d5586f"
-  integrity sha512-lZwZ7S3aJQLCfsp47LGIu0amceefniPBbVoAX3n1QHng/ld1P4cYIrE4+Lil39xhq8DvyUKEgGO+iazugAUtog==
-  dependencies:
-    "@opentelemetry/core" "1.11.0"
-    "@opentelemetry/sdk-trace-base" "1.11.0"
-    "@opentelemetry/semantic-conventions" "1.11.0"
+"@opentelemetry/semantic-conventions@1.10.0":
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@opentelemetry/semantic-conventions/-/semantic-conventions-1.10.0.tgz#2addef53b595c687c133922ecad0e850b9287fc9"
+  integrity sha512-Mzo5IyrI59YuYWeNoOZRXfUCc3upjmxCmczSm+pUgWprvSNfdOX70SVde84UxmuzU7MF1MEkPXKXTYG3ymRw2w==
 
 "@opentelemetry/semantic-conventions@1.10.1":
   version "1.10.1"
@@ -2051,6 +2093,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/debug@^4.1.7":
+  version "4.1.7"
+  resolved "https://registry.yarnpkg.com/@types/debug/-/debug-4.1.7.tgz#7cc0ea761509124709b8b2d1090d8f6c17aadb82"
+  integrity sha512-9AonUzyTjXXhEOa0DnqpzZi6VHlqKMswga9EXjpXnnqxwLtdvPPtlO8evrI5D9S6asFRCQ6v+wpiUKbw+vKqyg==
+  dependencies:
+    "@types/ms" "*"
+
 "@types/eslint-scope@^3.7.3":
   version "3.7.4"
   resolved "https://registry.yarnpkg.com/@types/eslint-scope/-/eslint-scope-3.7.4.tgz#37fc1223f0786c39627068a12e94d6e6fc61de16"
@@ -2161,6 +2210,11 @@
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-3.0.1.tgz#5f8f2bca0a5863cb69bc0b0acd88c96cb1d4ae10"
   integrity sha512-Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==
+
+"@types/ms@*":
+  version "0.7.31"
+  resolved "https://registry.yarnpkg.com/@types/ms/-/ms-0.7.31.tgz#31b7ca6407128a3d2bbc27fe2d21b345397f6197"
+  integrity sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==
 
 "@types/node@*", "@types/node@^18.15.11":
   version "18.15.11"
@@ -4729,7 +4783,7 @@ eventemitter3@^4.0.0:
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-4.0.7.tgz#2de9b68f6528d5644ef5c59526a1b4a07306169f"
   integrity sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==
 
-events@^3.2.0:
+events@^3.2.0, events@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/events/-/events-3.3.0.tgz#31a95ad0a924e2d2c419a813aeb2c4e878ea7400"
   integrity sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==
@@ -5289,6 +5343,13 @@ gzip-size@^6.0.0:
   integrity sha512-ax7ZYomf6jqPTQ4+XCpUGyXKHk5WweS+e05MBO4/y3WJ5RkmPXNKvX+bx1behVILVwr6JSQvZAku021CHPXG3Q==
   dependencies:
     duplexer "^0.1.2"
+
+h264-profile-level-id@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/h264-profile-level-id/-/h264-profile-level-id-1.0.1.tgz#92033c190766c846e57c6a97e4c1d922943a9cce"
+  integrity sha512-D3Rln/jKNjKDW5ZTJTK3niSoOGE+pFqPvRHHVgQN3G7umcn/zWGPUo8Q8VpDj16x3hKz++zVviRNRmXu5cpN+Q==
+  dependencies:
+    debug "^4.1.1"
 
 handle-thing@^2.0.0:
   version "2.0.1"
@@ -8125,7 +8186,7 @@ querystringify@^2.1.1:
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.2.0.tgz#3345941b4153cb9d082d8eee4cda2016a9aef7f6"
   integrity sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ==
 
-queue-microtask@^1.2.2:
+queue-microtask@^1.2.2, queue-microtask@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==

@@ -4,9 +4,9 @@
   "private": true,
   "dependencies": {
     "@dytesdk/react-ui-kit": "^1.47.0",
-    "@dytesdk/react-web-core": "^1.26.1",
+    "@dytesdk/react-web-core": "^1.29.4",
     "@dytesdk/video-background-transformer": "^1.1.4",
-    "@dytesdk/web-core": "1.10.1",
+    "@dytesdk/web-core": "1.12.4",
     "@types/jest": "^29.5.0",
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.33",
