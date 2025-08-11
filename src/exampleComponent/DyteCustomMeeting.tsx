@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react";
 import {
   useRealtimeSelector,
   useRealtimeMeeting,
-  DyteCameraToggle,
-  DyteLeaveButton,
-  DyteLogo,
-  DyteMicToggle,
-  DyteParticipantsAudio,
-  DyteDialogManager,
-  DyteSetupScreen,
-  DyteChat,
-  DyteGrid,
-  DyteChatToggle,
-  provideDyteDesignSystem,
+  RtkCameraToggle,
+  RtkLeaveButton,
+  RtkLogo,
+  RtkMicToggle,
+  RtkParticipantsAudio,
+  RtkDialogManager,
+  RtkSetupScreen,
+  RtkChat,
+  RtkGrid,
+  RtkChatToggle,
+  provideRtkDesignSystem,
 } from "src/realtime";
 
 const Meeting = () => {
@@ -21,7 +21,7 @@ const Meeting = () => {
   const [showChat, setShowChat] = useState(false);
 
   useEffect(() => {
-    provideDyteDesignSystem(document.body, {
+    provideRtkDesignSystem(document.body, {
       // sets light background colors
       theme: "dark",
       colors: {
@@ -54,9 +54,9 @@ const Meeting = () => {
           height: "100%",
         }}
       >
-        <DyteSetupScreen meeting={meeting} />
+        <RtkSetupScreen meeting={meeting} />
         {/* <DyteSetupScreen meeting={meeting} states={{ meeting: "setup" }} /> */}
-        <DyteDialogManager meeting={meeting} />
+        <RtkDialogManager meeting={meeting} />
       </div>
     );
   }
@@ -86,7 +86,7 @@ const Meeting = () => {
         }}
       >
         <div style={{ height: "50px", maxWidth: "50px" }}>
-          <DyteLogo
+          <RtkLogo
             config={{
               designTokens: { logo: "https://topmate.io/topmatelogo.svg" },
             }}
@@ -95,8 +95,8 @@ const Meeting = () => {
         Your App
       </div>
       <div style={{ flexGrow: 1 }}>
-        {!showChat && <DyteGrid gap={8} meeting={meeting} size="sm" />}
-        {showChat && <DyteChat meeting={meeting} />}
+        {!showChat && <RtkGrid gap={8} meeting={meeting} size="sm" />}
+        {showChat && <RtkChat meeting={meeting} />}
       </div>
       <div
         style={{
@@ -105,19 +105,19 @@ const Meeting = () => {
           justifyContent: "center",
         }}
       >
-        <DyteCameraToggle meeting={meeting} />
-        <DyteMicToggle meeting={meeting} />
-        <DyteChatToggle
+        <RtkCameraToggle meeting={meeting} />
+        <RtkMicToggle meeting={meeting} />
+        <RtkChatToggle
           meeting={meeting}
-          onDyteStateUpdate={(evt: any) => {
+          onRtkStateUpdate={(evt: any) => {
             const detail = (evt && (evt as any).detail) || {};
             setShowChat(!!(detail as any).activeSidebar);
           }}
         />
-        <DyteLeaveButton />
+        <RtkLeaveButton />
       </div>
-      <DyteParticipantsAudio meeting={meeting} />
-      <DyteDialogManager meeting={meeting} />
+      <RtkParticipantsAudio meeting={meeting} />
+      <RtkDialogManager meeting={meeting} />
     </div>
   );
 };
