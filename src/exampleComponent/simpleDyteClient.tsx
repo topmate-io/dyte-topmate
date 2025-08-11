@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDyteClient } from "@dytesdk/react-web-core";
-import {
-  DyteControlbar,
-  DyteControlbarButton,
-  DyteMeeting,
-  extendConfig,
-} from "@dytesdk/react-ui-kit";
+import { useRealtimeClient, RtkMeeting, extendConfig } from "src/realtime";
 import { joinExistingRoom } from "../utils";
 
 export const SimpleDyteClient: React.FC<{}> = () => {
@@ -14,7 +8,7 @@ export const SimpleDyteClient: React.FC<{}> = () => {
   const params = useParams<{ id: string; room: string }>();
   const auth = sessionStorage.getItem("auth");
   const roomName = sessionStorage.getItem("roomName");
-  const [meeting, initMeeting] = useDyteClient();
+  const [meeting, initMeeting] = useRealtimeClient();
 
   useEffect(() => {
     if (auth && roomName && params.id) {
@@ -60,7 +54,7 @@ export const SimpleDyteClient: React.FC<{}> = () => {
     <div style={{ display: "flex", flexDirection: "row" }}>
       {/* <div style={{ height: "100vh", width: "20vw", paddingTop: "15px" }}></div> */}
       <div style={{ height: "100vh", width: "100vw" }}>
-        <DyteMeeting
+        <RtkMeeting
           mode="fill"
           meeting={meeting}
           config={config}

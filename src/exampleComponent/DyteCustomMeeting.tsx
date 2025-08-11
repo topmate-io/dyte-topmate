@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useDyteSelector, useDyteMeeting } from "@dytesdk/react-web-core";
 import {
+  useRealtimeSelector,
+  useRealtimeMeeting,
   DyteCameraToggle,
   DyteLeaveButton,
   DyteLogo,
@@ -12,11 +13,11 @@ import {
   DyteGrid,
   DyteChatToggle,
   provideDyteDesignSystem,
-} from "@dytesdk/react-ui-kit";
+} from "src/realtime";
 
 const Meeting = () => {
-  const { meeting } = useDyteMeeting();
-  const roomJoined = useDyteSelector((m) => m.self.roomJoined);
+  const { meeting } = useRealtimeMeeting();
+  const roomJoined = useRealtimeSelector((m) => m.self.roomJoined);
   const [showChat, setShowChat] = useState(false);
 
   useEffect(() => {
@@ -108,8 +109,9 @@ const Meeting = () => {
         <DyteMicToggle meeting={meeting} />
         <DyteChatToggle
           meeting={meeting}
-          onDyteStateUpdate={({ detail }) => {
-            setShowChat(!!detail.activeSidebar);
+          onDyteStateUpdate={(evt: any) => {
+            const detail = (evt && (evt as any).detail) || {};
+            setShowChat(!!(detail as any).activeSidebar);
           }}
         />
         <DyteLeaveButton />

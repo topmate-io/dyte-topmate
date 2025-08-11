@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { DyteMeeting } from "@dytesdk/react-ui-kit";
-import { useDyteClient } from "@dytesdk/react-web-core";
-import DyteVideoBackgroundTransformer from "@dytesdk/video-background-transformer";
+import { RtkMeeting } from "src/realtime";
+import { useRealtimeClient } from "src/realtime";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
@@ -19,7 +18,7 @@ export const TopmateClient: React.FC<{}> = () => {
     token: string;
   }>();
   let query: any = useQuery();
-  const [meeting, initMeeting] = useDyteClient();
+  const [meeting, initMeeting] = useRealtimeClient();
 
   // Retro Theme Plugin
   const RetroTheme = (): any => {
@@ -90,7 +89,7 @@ export const TopmateClient: React.FC<{}> = () => {
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
       <div style={{ height: "100vh", width: "100vw" }}>
-        <DyteMeeting
+        <RtkMeeting
           mode="fill"
           meeting={meeting}
           // config={config}
