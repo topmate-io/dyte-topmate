@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRealtimeClient, RtkMeeting, extendConfig } from "src/realtime";
 import { joinExistingRoom } from "../utils";
@@ -23,7 +23,6 @@ export const SimpleDyteClient: React.FC<{}> = () => {
     }
 
     if (!auth && !roomName && params.id && params.room) {
-      //creating a new participant
       joinExistingRoom(params.id, params.room);
     }
   }, []);

@@ -19,7 +19,6 @@ export const CustomLayout: React.FC<{}> = () => {
       });
     }
     if (!auth && !roomName && params.id && params.room) {
-      //creating a new participant
       joinExistingRoom(params.id, params.room);
     }
   }, []);

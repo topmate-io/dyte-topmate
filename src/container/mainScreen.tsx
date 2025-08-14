@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { createParticipantAndGetToken } from "../utils";
 
 const folderNameMap: any = {
-  "simple-dyte-client": "simpleDyteClient",
-  "custom-layout": "customLayout",
+  simple: "simpleDyteClient",
 };
 
 const { REACT_APP_MY_BACKEND: MY_BACKEND } = process.env;
@@ -13,8 +13,7 @@ export const MainScreenComponent = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [allMeeetings, setAllMeeting] = useState<any[]>([]);
   const [newMeetingTitle, setNewMeetingTitle] = useState<string>("");
-  const [selectedExample, setSelectedExample] =
-    useState<string>("simple-dyte-client");
+  const [selectedExample, setSelectedExample] = useState<string>("simple");
 
   let navigate = useNavigate();
 
@@ -46,21 +45,8 @@ export const MainScreenComponent = () => {
     roomName: string,
     isHost: boolean = false
   ) => {
-    const resp = await axios({
-      url: `${MY_BACKEND}/participant/create`,
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-      },
-      data: {
-        roleName: isHost ? "host" : "participant",
-        meetingId: meetingId,
-        clientSpecificId: Math.random().toString(36).substring(7),
-      },
-    });
-
-    const authResponse = resp.data.data.authResponse;
-    const authToken = authResponse.authToken;
+    const type = isHost ? "expert" : "follower";
+    const authToken = await createParticipantAndGetToken(meetingId, type);
 
     //saving meeting details in session storage
     sessionStorage.setItem("auth", authToken);
@@ -104,10 +90,9 @@ export const MainScreenComponent = () => {
       </div>
       <div className="divider" />
       <h3>Choose Example </h3>
-      <select onChange={(e) => setSelectedExample(e.target.value)}>
-        <option value="simple-dyte-client">simple-dyte-client</option>
-        <option value="custom-layout">custom-layout</option>
-      </select>
+          <select onChange={(e) => setSelectedExample(e.target.value)}>
+            <option value="simple">simple</option>
+          </select>
       <div className="ex-det">
         <div>Check the example component here</div>
         <br />

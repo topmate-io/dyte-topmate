@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { RtkMeeting } from "src/realtime";
 import { useRealtimeClient } from "src/realtime";
+import { createParticipantAndGetToken } from "src/utils";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
@@ -11,7 +12,6 @@ function useQuery() {
 
 export const TopmateClient: React.FC<{}> = () => {
   const navigate = useNavigate();
-  console.log("Navigate: ", navigate);
   const params: any = useParams<{
     id: string;
     room: string;
@@ -33,22 +33,36 @@ export const TopmateClient: React.FC<{}> = () => {
   };
 
   useEffect(() => {
-    const token = query.get("authToken");
-    const { id, room } = params;
-    const auth: string = sessionStorage.getItem("auth") || token;
-    sessionStorage.setItem("auth", token);
-    sessionStorage.setItem("meetingID", id);
-    sessionStorage.setItem("roomName", room);
-    if (token && room && id) {
-      initMeeting({
-        authToken: auth,
-        roomName: room,
-        defaults: {
-          video: false,
-          audio: false,
-        },
-      });
-    }
+    const run = async () => {
+      const urlToken = query.get("authToken") as string | null;
+      const participantTypeParam = query.get("type") as string | null; // expert | follower
+      const type = participantTypeParam === "expert" ? "expert" : "follower";
+      const { id, room } = params;
+      const sessionToken = sessionStorage.getItem("auth");
+
+      // Persist meeting metadata if present
+      if (id) sessionStorage.setItem("meetingID", id);
+      if (room) sessionStorage.setItem("roomName", room);
+
+      // Ensure we have a token: prefer session -> URL -> backend fetch
+      let finalToken = sessionToken || urlToken || null;
+      if (!finalToken && id) {
+        finalToken = await createParticipantAndGetToken(id, type);
+        sessionStorage.setItem("auth", finalToken);
+      }
+
+      if (finalToken && id) {
+        initMeeting({
+          authToken: finalToken,
+          ...(room ? { roomName: room } : {}),
+          defaults: {
+            video: false,
+            audio: false,
+          },
+        });
+      }
+    };
+    run();
   }, []);
 
   const updateMeetingEvents = async () => {
@@ -73,7 +87,9 @@ export const TopmateClient: React.FC<{}> = () => {
   }, [meeting, navigate]);
 
   useEffect(() => {
-    sessionStorage.clear();
+    return () => {
+      sessionStorage.clear();
+    };
   }, []);
 
   // const config = extendConfig({

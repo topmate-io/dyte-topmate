@@ -15,6 +15,7 @@ import {
   RtkChat as RtkChatComponent,
   RtkGrid as RtkGridComponent,
   RtkChatToggle as RtkChatToggleComponent,
+  provideRtkDesignSystem as provideRtkDesignSystemOriginal,
 } from "@cloudflare/realtimekit-react-ui";
 
 // Core meeting hooks/providers (typed as any to avoid SDK version type conflicts)
@@ -49,4 +50,4 @@ export const RtkChatToggle: any = RtkChatToggleComponent as any;
 // Re-export UI controls/helpers
 // Optional helpers for backward compatibility; keep generic names
 export const extendConfig = (config: any) => config;
-export const provideRtkDesignSystem = (..._args: any[]) => {};
+export const provideRtkDesignSystem = provideRtkDesignSystemOriginal as any;
