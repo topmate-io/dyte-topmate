@@ -15,6 +15,7 @@ import {
   RtkChat as RtkChatComponent,
   RtkGrid as RtkGridComponent,
   RtkChatToggle as RtkChatToggleComponent,
+  RtkEndedScreen as RtkEndedScreenComponent,
   provideRtkDesignSystem as provideRtkDesignSystemOriginal,
 } from "@cloudflare/realtimekit-react-ui";
 
@@ -46,6 +47,7 @@ export const RtkSetupScreen: any = RtkSetupScreenComponent as any;
 export const RtkChat: any = RtkChatComponent as any;
 export const RtkGrid: any = RtkGridComponent as any;
 export const RtkChatToggle: any = RtkChatToggleComponent as any;
+export const RtkEndedScreen: any = RtkEndedScreenComponent as any;
 
 // Re-export UI controls/helpers
 // Optional helpers for backward compatibility; keep generic names
