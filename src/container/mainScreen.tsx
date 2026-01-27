@@ -1,22 +1,6 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-
-const { REACT_APP_MY_BACKEND: MY_BACKEND } = process.env;
+import React from "react";
 
 export const MainScreenComponent = () => {
-  const [allMeeetings, setAllMeeting] = useState<any[]>([]);
-
-  useEffect(() => {
-    // api call to get list of available/existing meeting rooms
-    axios({
-      url: `${MY_BACKEND}/meetings`,
-      method: "GET",
-    })
-      .then((response) => {
-        setAllMeeting(response.data.data.meetings);
-      })
-      .catch((err) => console.error(err));
-  }, []);
 
   return (
     <div className="main-screen-wrapper">
