@@ -1,61 +1,10 @@
 import axios from "axios";
-import React, { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { createParticipantAndGetToken } from "../utils";
-
-const folderNameMap: any = {
-  simple: "simpleDyteClient",
-};
+import React, { useEffect, useState } from "react";
 
 const { REACT_APP_MY_BACKEND: MY_BACKEND } = process.env;
 
 export const MainScreenComponent = () => {
-  const [loading, setLoading] = useState<boolean>(true);
   const [allMeeetings, setAllMeeting] = useState<any[]>([]);
-  const [newMeetingTitle, setNewMeetingTitle] = useState<string>("");
-  const [selectedExample, setSelectedExample] = useState<string>("simple");
-
-  let navigate = useNavigate();
-
-  const handleCreateRoomClick = useCallback(
-    (title: string) => {
-      axios({
-        url: `${MY_BACKEND}/meeting/create`,
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-        },
-        data: {
-          title: title,
-        },
-      })
-        .then((res) => {
-          let rooms = [...allMeeetings];
-          rooms.push(res.data.data.meeting);
-          setAllMeeting([...rooms]);
-          setNewMeetingTitle("");
-        })
-        .catch((err) => console.error(err));
-    },
-    [allMeeetings]
-  );
-
-  const joinRoom = async (
-    meetingId: string,
-    roomName: string,
-    isHost: boolean = false
-  ) => {
-    const type = isHost ? "expert" : "follower";
-    const authToken = await createParticipantAndGetToken(meetingId, type);
-
-    //saving meeting details in session storage
-    sessionStorage.setItem("auth", authToken);
-    sessionStorage.setItem("meetingID", meetingId);
-    sessionStorage.setItem("roomName", roomName);
-
-    // redirecting to the example meeting page
-    navigate(`/${selectedExample}/meeting/${roomName}/${meetingId}`);
-  };
 
   useEffect(() => {
     // api call to get list of available/existing meeting rooms
@@ -66,8 +15,7 @@ export const MainScreenComponent = () => {
       .then((response) => {
         setAllMeeting(response.data.data.meetings);
       })
-      .catch((err) => console.error(err))
-      .finally(() => setLoading(false));
+      .catch((err) => console.error(err));
   }, []);
 
   return (

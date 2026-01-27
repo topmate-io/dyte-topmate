@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { RtkMeeting, RtkEndedScreen, RealtimeProvider } from "src/realtime";
+import { RtkMeeting, RealtimeProvider } from "src/realtime";
 import { useRealtimeClient } from "src/realtime";
 import { createParticipantAndGetToken } from "src/utils";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useRealtimeKitSelector } from "@cloudflare/realtimekit-react";
 
 const { REACT_APP_MY_BACKEND: MY_BACKEND } = process.env;
@@ -20,7 +20,6 @@ function useQuery() {
 
 // Internal component that uses RealtimeKit hooks properly
 const MeetingComponent: React.FC<{ meeting: any }> = ({ meeting }) => {
-  const navigate = useNavigate();
   const params: any = useParams<{
     id: string;
     room: string;
@@ -351,7 +350,6 @@ const MeetingComponent: React.FC<{ meeting: any }> = ({ meeting }) => {
 };
 
 export const TopmateClient: React.FC<{}> = () => {
-  const navigate = useNavigate();
   const params: any = useParams<{
     id: string;
     room: string;
