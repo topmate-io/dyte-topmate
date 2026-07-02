@@ -4,8 +4,8 @@
   "private": true,
   "packageManager": "bun@1.1.45",
   "dependencies": {
-    "@cloudflare/realtimekit-react": "^1.1.5",
-    "@cloudflare/realtimekit-react-ui": "^1.0.4",
+    "@cloudflare/realtimekit-react": "^2.0.0",
+    "@cloudflare/realtimekit-react-ui": "^2.0.0",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.17.1",
     "@types/react": "^18.3.23",
@@ -27,8 +27,8 @@
     "bun": ">=1.1.0"
   },
   "scripts": {
-    "start": "cra-webpack-rewired start",
-    "build": "cra-webpack-rewired build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -38,11 +38,15 @@
       "react-app/jest"
     ]
   },
+    "//browserslist": "Modern targets only: the @cloudflare/realtimekit 2.x SDK ships ES2015+ class syntax, and CRA's node_modules Babel pass errors trying to down-level it for legacy browsers. A WebRTC video app requires a modern browser anyway.",
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+      "last 3 Chrome versions",
+      "last 3 Firefox versions",
+      "last 2 Safari versions",
+      "last 3 Edge versions",
+      "last 2 iOS versions",
+      "not dead"
     ],
     "development": [
       "last 1 chrome version",
