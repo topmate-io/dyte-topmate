@@ -1,93 +1,63 @@
 <!-- PROJECT LOGO -->
 <p align="center">
-  <a href="https://dyte.io">
-    <img src="https://dyte-uploads.s3.ap-south-1.amazonaws.com/dyte-logo-dark.svg" alt="Logo" height="40">
+  <a href="https://topmate.io">
+    <img src="public/topmate-logo.svg" alt="Topmate" height="40">
   </a>
 
-  <h3 align="center">React UI Kit Sample App</h3>
+  <h3 align="center">Topmate Meet</h3>
 
   <p align="center">
-    A basic project demonstrating how you can integrate <b>dyte</b> in your React app.
+    Topmate's video-call frontend, built on <b>Cloudflare RealtimeKit</b>.
     <br />
-    <a href="https://docs.dyte.io"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://dyte-react-sample.vercel.app">View Demo</a>
-    ·
-    <a href="https://github.com/dyte-in/react-sample-app/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/dyte-in/react-sample-app/issues">Request Feature</a>
+    <a href="https://developers.cloudflare.com/realtime/realtimekit/"><strong>RealtimeKit docs »</strong></a>
   </p>
 </p>
 
-<!-- TABLE OF CONTENTS -->
+## About
 
-## Table of Contents
+React (CRA) single-page app that hosts 1:1 and group video calls. Deployed on Vercel:
 
-- [About the Project](#about-the-project)
-  - [Built With](#built-with)
-- [Structure](#structure)
-- [Application FLow](#application-flow)
-- [Getting Started](#getting-started)
-- [License](#license)
+- Production: `meet.topmate.io` (branch `main`)
+- Staging: `meet-staging.topmate.io` (branch `develop`)
 
-<!-- ABOUT THE PROJECT -->
+The app fetches a participant auth token from the Topmate backend
+(`${REACT_APP_MY_BACKEND}/realtimekit-add-participant/{meetingId}/`) and joins the
+meeting with the [RealtimeKit React SDK](https://www.npmjs.com/package/@cloudflare/realtimekit-react).
 
-## About The Project
-
-A basic project demonstrating how you can integrate **dyte** in your React app.
+> Migrated from Dyte after Cloudflare's acquisition. Frontend uses
+> `@cloudflare/realtimekit*` 2.x (targets `api.realtime.cloudflare.com`); the
+> backend REST integration uses
+> `https://api.cloudflare.com/client/v4/accounts/{account}/realtime/kit/{app}/…`
+> with Bearer auth.
 
 ### Built With
 
+- [@cloudflare/realtimekit-react](https://www.npmjs.com/package/@cloudflare/realtimekit-react)
+- [@cloudflare/realtimekit-react-ui](https://www.npmjs.com/package/@cloudflare/realtimekit-react-ui)
+- [react](https://react.dev/) + [react-router-dom](https://reactrouter.com/)
 - [create-react-app](https://github.com/facebook/create-react-app)
-- [@dytesdk/web-core](https://www.npmjs.com/package/@dytesdk/web-core)
-- [@dytesdk/react-ui-kit](https://www.npmjs.com/package/@dytesdk/react-ui-kit)
-
-<!-- GETTING STARTED -->
-
-## Structure
-
-React App structure:
-
-```
-├── src
-│   ├── App.tsx // Dyte Meeting Component
-│   ├── index.tsx // application js entry point
-```
 
 ## Getting Started
 
-Please make sure you have an organization ID and API Key for your application. These can be obtained from the developer portal.
-
-1. Clone the repo
-
 ```sh
-git clone https://github.com/dyte-in/react-ui-kit-sample-app.git
+bun install
+cp .env.example .env   # then fill in the values below
+bun start              # http://localhost:3000
+bun run build          # production build (react-scripts)
 ```
 
-2. Install NPM packages
+### Environment
 
-```sh
-npm install
+```
+REACT_APP_MY_BACKEND=<topmate backend base url>
+REACT_APP_TOPMATE_BASE_URL=https://topmate.io
+REACT_APP_RAYGUN_API_KEY=<raygun key>
 ```
 
-3. Create an `.env` file with your credentials. Use `.env.example` as a template.
-```
-cp .env.example .env
-```
+## Routes
 
-4. Run the application
-
-```sh
-npm start
-```
-
-
-<!-- You can use this example as a reference on how you can integrate your webapp with dyte. -->
-
-_For documentation on APIs and client SDKs, please refer to our [official documentation](https://docs.dyte.io)._
-
-<!-- LICENSE -->
+- `/meeting/:id` and `/meeting/:room/:id` — join a meeting.
+  Query params: `?type=expert|follower`, optional `?authToken=` (skips the backend token fetch).
 
 ## License
 

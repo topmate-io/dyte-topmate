@@ -4,7 +4,7 @@ export const MainScreenComponent = () => {
 
   return (
     <div className="main-screen-wrapper">
-      <img src="/topmate-logo.svg" alt="dyte-logo" />
+      <img src="/topmate-logo.svg" alt="topmate-logo" />
       <h1>Welcome to the Topmate App.</h1>
       {/* <div className="flex row">
         <input
