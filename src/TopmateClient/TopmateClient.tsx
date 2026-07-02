@@ -81,25 +81,31 @@ const MeetingComponent: React.FC<{ meeting: any }> = ({ meeting }) => {
   useEffect(() => {
     if (!meeting) return;
 
-    const handleRoomLeft = () => {
+    // `roomLeft` is the authoritative "this participant's session is over"
+    // signal. Its payload state covers leaving, being kicked, and the host
+    // ending the meeting for everyone.
+    //
+    // NOTE: do NOT redirect on `meeting.meta` "disconnected". In the
+    // RealtimeKit SDK that is a *transient* connection event (fires during the
+    // setup screen and on brief network blips, followed by auto-reconnect) and
+    // is not a meeting-ended signal. Treating it as an end sent users straight
+    // to the "Meeting Ended" screen before they could join.
+    const handleRoomLeft = (payload?: any) => {
+      const state = payload?.state;
+      // Ignore any pre-join transitions; only end once the participant has
+      // actually left/ended an in-progress session.
+      if (state && !["left", "ended", "kicked", "rejected"].includes(state)) {
+        return;
+      }
       sessionStorage.clear();
       setMeetingEnded(true);
       handleMeetingEndRedirect();
     };
 
-    const handleDisconnected = () => {
-      sessionStorage.clear();
-      setMeetingEnded(true);
-      handleMeetingEndRedirect();
-    };
-
-    // Listen for meeting end events
     meeting?.self?.on?.("roomLeft", handleRoomLeft);
-    meeting?.meta?.on?.("disconnected", handleDisconnected);
 
     return () => {
       meeting?.self?.off?.("roomLeft", handleRoomLeft);
-      meeting?.meta?.off?.("disconnected", handleDisconnected);
     };
   }, [meeting]);
 
