@@ -1,0 +1,5 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "node ./node_modules/cra-webpack-rewired/src/cli.js build",
+  "outputDirectory": "build"
+}
