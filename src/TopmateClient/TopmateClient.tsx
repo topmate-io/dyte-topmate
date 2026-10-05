@@ -6,12 +6,16 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { useRealtimeKitSelector } from "@cloudflare/realtimekit-react";
+import { buildMeetingUiConfig } from "src/realtime/addons";
 
 const { REACT_APP_MY_BACKEND: MY_BACKEND } = process.env;
 const TOPMATE_BASE_URL =
   process.env.TOPMATE_BASE_URL ||
   process.env.REACT_APP_TOPMATE_BASE_URL ||
   "https://topmate.io";
+
+// TOP-609: longest the meeting waits for the blur add-on's UI config before opening without it.
+const ADDON_CONFIG_TIMEOUT_MS = 3000;
 
 function useQuery() {
   const { search } = useLocation();
@@ -34,6 +38,27 @@ const MeetingComponent: React.FC<{ meeting: any }> = ({ meeting }) => {
   const roomState = useRealtimeKitSelector(
     (state: any) => state?.self?.roomState
   );
+
+  // TOP-609: the "Effects" (blur) button, when this browser supports it (src/realtime/addons.ts).
+  // Wait at most ADDON_CONFIG_TIMEOUT_MS for it, then open the stock UI and ignore a late config,
+  // so the UI is never swapped under someone who has already started setting up.
+  const [uiConfig, setUiConfig] = useState<any>(undefined);
+  const [uiConfigSettled, setUiConfigSettled] = useState(false);
+  useEffect(() => {
+    let settled = false;
+    const settle = (config?: any) => {
+      if (settled) return;
+      settled = true;
+      setUiConfig(config);
+      setUiConfigSettled(true);
+    };
+    const timer = setTimeout(() => settle(undefined), ADDON_CONFIG_TIMEOUT_MS);
+    buildMeetingUiConfig(meeting).then(settle);
+    return () => {
+      settled = true;
+      clearTimeout(timer);
+    };
+  }, [meeting]);
 
   // Function to handle meeting end API call and redirect
   const handleMeetingEndRedirect = async () => {
@@ -337,12 +362,17 @@ const MeetingComponent: React.FC<{ meeting: any }> = ({ meeting }) => {
     );
   }
 
+  if (!uiConfigSettled) {
+    return null;
+  }
+
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
       <div style={{ height: "100vh", width: "100vw" }}>
         <RtkMeeting
           mode="fill"
           meeting={meeting}
+          {...(uiConfig ? { config: uiConfig } : {})}
           showSetupScreen
           endMeeting={() => {
             sessionStorage.clear();
