@@ -34,6 +34,7 @@ meeting with the [RealtimeKit React SDK](https://www.npmjs.com/package/@cloudfla
 
 - [@cloudflare/realtimekit-react](https://www.npmjs.com/package/@cloudflare/realtimekit-react)
 - [@cloudflare/realtimekit-react-ui](https://www.npmjs.com/package/@cloudflare/realtimekit-react-ui)
+- [@cloudflare/realtimekit-ui-addons](https://developers.cloudflare.com/realtime/realtimekit/ui-kit/addons/): the "Effects" (background blur) button, `src/realtime/addons.ts`
 - [react](https://react.dev/) + [react-router-dom](https://reactrouter.com/)
 - [create-react-app](https://github.com/facebook/create-react-app)
 
