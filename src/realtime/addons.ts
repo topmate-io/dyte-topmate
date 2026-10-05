@@ -32,6 +32,22 @@ const VIRTUAL_BACKGROUNDS = [
  * Everything is loaded with import(), so it stays out of the main bundle; the blur model and wasm
  * (~3.4 MB) download only when someone picks Blur or a background.
  */
+/**
+ * Start downloading the add-on code while the meeting connects, so buildMeetingUiConfig() is not
+ * waiting on the network when the meeting is ready. Without this, a slow or cold CDN load could
+ * outrun the meeting's wait for the add-ons and open the stock UI without Effects (seen on a first
+ * load of a fresh deployment). Same import() specifiers, so webpack reuses the chunks.
+ */
+export function preloadMeetingAddons(): void {
+  [
+    import("@cloudflare/realtimekit-virtual-background"),
+    import("@cloudflare/realtimekit-ui-addons/video-background"),
+    import("@cloudflare/realtimekit-ui-addons/reactions-manager"),
+    import("@cloudflare/realtimekit-ui-addons/hand-raise"),
+    import("@cloudflare/realtimekit-ui"),
+  ].forEach((loading) => loading.catch(() => undefined));
+}
+
 export async function buildMeetingUiConfig(meeting: any): Promise<any | undefined> {
   try {
     const results = await Promise.allSettled([

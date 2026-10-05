@@ -6,7 +6,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { useRealtimeKitSelector } from "@cloudflare/realtimekit-react";
-import { buildMeetingUiConfig } from "src/realtime/addons";
+import { buildMeetingUiConfig, preloadMeetingAddons } from "src/realtime/addons";
 
 const { REACT_APP_MY_BACKEND: MY_BACKEND } = process.env;
 const TOPMATE_BASE_URL =
@@ -395,6 +395,8 @@ export const TopmateClient: React.FC<{}> = () => {
   const [meeting, initMeeting] = useRealtimeClient();
 
   const run = async () => {
+    // TOP-609: fetch the add-on code while the meeting connects (see preloadMeetingAddons).
+    preloadMeetingAddons();
     const urlToken = query.get("authToken") as string | null;
     const participantTypeParam = query.get("type") as string | null; // expert | follower
     const type = participantTypeParam === "expert" ? "expert" : "follower";
