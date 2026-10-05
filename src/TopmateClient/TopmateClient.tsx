@@ -14,7 +14,7 @@ const TOPMATE_BASE_URL =
   process.env.REACT_APP_TOPMATE_BASE_URL ||
   "https://topmate.io";
 
-// TOP-609: longest the meeting waits for the blur add-on's UI config before opening without it.
+// TOP-609: longest the meeting waits for the add-ons' UI config before opening without it.
 const ADDON_CONFIG_TIMEOUT_MS = 3000;
 
 function useQuery() {
@@ -39,7 +39,7 @@ const MeetingComponent: React.FC<{ meeting: any }> = ({ meeting }) => {
     (state: any) => state?.self?.roomState
   );
 
-  // TOP-609: the "Effects" (blur) button, when this browser supports it (src/realtime/addons.ts).
+  // TOP-609: meeting add-ons (Effects, reactions, hand raise; see src/realtime/addons.ts).
   // Wait at most ADDON_CONFIG_TIMEOUT_MS for it, then open the stock UI and ignore a late config,
   // so the UI is never swapped under someone who has already started setting up.
   const [uiConfig, setUiConfig] = useState<any>(undefined);
